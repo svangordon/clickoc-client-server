@@ -16,7 +16,7 @@ export default class About extends Component {
     return (
       <div className="container">
         <h1>About Us</h1>
-        <Helmet title="About Us"/>
+        <Helmet title="About NJMA"/>
 
         <p>This project was originally created by Erik Rasmussen
           (<a href="https://twitter.com/erikras" target="_blank">@erikras</a>), but has since seen many contributions

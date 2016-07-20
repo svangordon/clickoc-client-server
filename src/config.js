@@ -1,4 +1,5 @@
 require('babel-polyfill');
+// var apiKeys = require('../apiKeys.js');
 
 const environment = {
   development: {
@@ -12,8 +13,9 @@ const environment = {
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: process.env.PORT,
-  apiHost: process.env.APIHOST || 'localhost',
-  apiPort: process.env.APIPORT,
+  apiHost: 'localhost',
+  apiPort: 5000 || process.env.APIPORT,
+  // apiKeys: apiKeys,
   app: {
     title: 'React Redux Example',
     description: 'All the modern best practices in one example.',

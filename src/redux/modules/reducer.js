@@ -8,6 +8,7 @@ import counter from './counter';
 import {reducer as form} from 'redux-form';
 import info from './info';
 import widgets from './widgets';
+import apiTest from './apiTest';
 
 export default combineReducers({
   routing: routerReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
     counter3: counter
   }),
   info,
-  widgets
+  widgets,
+  apiTest
 });
