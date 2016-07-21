@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 // import { Link } from 'react-router';
 // import { CounterButton } from 'components';
-import {bindActionCreators} from 'redux';
+// import {bindActionCreators} from 'redux';
 import config from '../../config';
 import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
-import {test} from 'redux/modules/apiTest';
+// import {load as loadUser} from 'redux/modules/user';
+// import {test} from 'redux/modules/apiTest';
+// import {push} from 'react-router-redux';
 // import { isLoaded as isAuthLoaded } from 'redux/modules/auth';
 
 
@@ -15,28 +17,26 @@ import {test} from 'redux/modules/apiTest';
       auth: state.auth,
       user: state.user
     }),
-    dispatch => bindActionCreators({test}, dispatch))
+    // dispatch => bindActionCreators({test}, dispatch),
+    // {pushState: push}
+  )
 
 export default class Home extends Component {
   static propTypes = {
     info: PropTypes.object,
     user: PropTypes.object,
     auth: PropTypes.object,
-    test: PropTypes.func.isRequired
+    // test: PropTypes.func.isRequired,
+    // pushState: PropTypes.func.isRequired
   }
 
   componentWillMount() {
-    if (this.props.user.loaded) {
-      console.log('user is loaded!');
+    const loaded = this.props.user.loaded;
+    const user = this.props.user.user;
+    if (loaded && user.location && user.location.lon === -9999 && user.location.lat === -9999) {
+      // this.props.pushState('/setLocation');
+      console.log('should redirect');
     }
-    // if ('geolocation' in navigator) {
-    //   console.log('geoloc available');
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     console.log('coords ==', position.coords);
-    //   });
-    // } else {
-    //   console.log('geoloc not available');
-    // }
   }
 
   renderLogin() {

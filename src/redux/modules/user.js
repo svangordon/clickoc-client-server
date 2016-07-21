@@ -21,6 +21,7 @@ export default function reducer(state = initialState, action = {}) {
         loading: true
       };
     case LOAD_SUCCESS:
+      console.log('load success; action ==', action);
       return {
         ...state,
         loading: false,
@@ -81,7 +82,12 @@ export function isLoaded(globalState) {
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/loadUser')
+    promise: (client) => {
+      client.get('/loadUser').then( data => {
+        console.log('got', data);
+      });
+      return client.get('/loadUser');
+    }
   };
 }
 
