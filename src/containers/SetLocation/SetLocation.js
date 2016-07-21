@@ -17,18 +17,16 @@ import {test} from 'redux/modules/apiTest';
     }),
     dispatch => bindActionCreators({test}, dispatch))
 
-export default class Home extends Component {
+export default class SetLocation extends Component {
   static propTypes = {
     info: PropTypes.object,
-    user: PropTypes.object,
     auth: PropTypes.object,
+    user: PropTypes.object,
     test: PropTypes.func.isRequired
   }
 
   componentWillMount() {
-    if (this.props.user.loaded) {
-      console.log('user is loaded!');
-    }
+    this.props.test();
     // if ('geolocation' in navigator) {
     //   console.log('geoloc available');
     //   navigator.geolocation.getCurrentPosition((position) => {
@@ -40,7 +38,7 @@ export default class Home extends Component {
   }
 
   renderLogin() {
-    if (this.props.user.loaded) {
+    if (this.props.auth.loaded) {
       return null;
     }
     return (
@@ -49,22 +47,15 @@ export default class Home extends Component {
   }
 
   render() {
-    const styles = require('./Home.scss');
+    const styles = require('./SetLocation.scss');
     // require the logo image both from client and server
     const logoImage = require('./logo-placeholder.png');
     return (
-      <div className={styles.home}>
-        <Helmet title="Home"/>
+      <div className={styles.setLocation}>
+        <Helmet title="Where You At"/>
         <div className={styles.masthead}>
           <div className="container">
-            <div className={styles.logo}>
-              <p>
-                <img src={logoImage}/>
-              </p>
-            </div>
-            <h1>Do a twitter thing!</h1>
-            {this.renderLogin()}
-            <h2>{config.app.description}</h2>
+            <h1>We don't know where you are!</h1>
           </div>
         </div>
 
