@@ -9,11 +9,13 @@ import {reducer as form} from 'redux-form';
 import info from './info';
 import widgets from './widgets';
 import apiTest from './apiTest';
+import user from './user';
 
 export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
   auth,
+  user,
   form,
   multireducer: multireducer({
     counter1: counter,

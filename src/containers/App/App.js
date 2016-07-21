@@ -12,6 +12,7 @@ import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/module
 import { push } from 'react-router-redux';
 import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
+import { load as loadUser, isLoaded as isUserLoaded } from 'redux/modules/user';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
@@ -20,6 +21,10 @@ import { asyncConnect } from 'redux-async-connect';
     // Unsure what this was doing, but it's not neaded now.
     if (!isAuthLoaded(getState())) {
       promises.push(dispatch(loadAuth()));
+    }
+
+    if (!isUserLoaded(getState())) {
+      promises.push(dispatch(loadUser()));
     }
 
     return Promise.all(promises);
