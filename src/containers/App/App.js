@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 // import NavItem from 'react-bootstrap/lib/NavItem';
 import Helmet from 'react-helmet';
 // import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info'; // these don't need to be here
-import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
+// import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
 // import { InfoBar } from 'components';
 import { push } from 'react-router-redux';
 import config from '../../config';
@@ -18,10 +18,10 @@ import { load as loadUser, isLoaded as isUserLoaded } from 'redux/modules/user';
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];
 
-    // Unsure what this was doing, but it's not neaded now.
-    if (!isAuthLoaded(getState())) {
-      promises.push(dispatch(loadAuth()));
-    }
+    // // Unsure what this was doing, but it's not neaded now.
+    // if (!isAuthLoaded(getState())) {
+    //   promises.push(dispatch(loadAuth()));
+    // }
 
     if (!isUserLoaded(getState())) {
       promises.push(dispatch(loadUser()));
@@ -31,13 +31,13 @@ import { load as loadUser, isLoaded as isUserLoaded } from 'redux/modules/user';
   }
 }])
 @connect(
-  state => ({user: state.auth.user}),
-  {logout, pushState: push})
+  state => ({user: state.user}),
+  {pushState: push})
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     user: PropTypes.object,
-    logout: PropTypes.func.isRequired,
+    // logout: PropTypes.func.isRequired,
     pushState: PropTypes.func.isRequired
   };
 
@@ -45,20 +45,20 @@ export default class App extends Component {
     store: PropTypes.object.isRequired
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.user && nextProps.user) {
-      // login
-      this.props.pushState('/loginSuccess');
-    } else if (this.props.user && !nextProps.user) {
-      // logout
-      this.props.pushState('/');
-    }
-  }
-
-  handleLogout = (event) => {
-    event.preventDefault();
-    this.props.logout();
-  };
+  // componentWillReceiveProps(nextProps) {
+  //   if (!this.props.user && nextProps.user) {
+  //     // login
+  //     this.props.pushState('/loginSuccess');
+  //   } else if (this.props.user && !nextProps.user) {
+  //     // logout
+  //     this.props.pushState('/');
+  //   }
+  // }
+  //
+  // handleLogout = (event) => {
+  //   event.preventDefault();
+  //   this.props.logout();
+  // };
 
   render() {
     // const {user} = this.props;
