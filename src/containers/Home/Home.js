@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-// import { Link } from 'react-router';
+import { withRouter } from 'react-router';
 // import { CounterButton } from 'components';
 // import {bindActionCreators} from 'redux';
 import config from '../../config';
@@ -21,21 +21,22 @@ import {connect} from 'react-redux';
     // {pushState: push}
   )
 
-export default class Home extends Component {
+class Home extends Component {
   static propTypes = {
     info: PropTypes.object,
     user: PropTypes.object,
     auth: PropTypes.object,
-    // test: PropTypes.func.isRequired,
+    router: PropTypes.object
     // pushState: PropTypes.func.isRequired
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const loaded = this.props.user.loaded;
     const user = this.props.user.user;
     if (loaded && user.location && user.location.lon === -9999 && user.location.lat === -9999) {
-      // this.props.pushState('/setLocation');
       console.log('should redirect');
+      // console.log(this.props.router);
+      this.props.router.push('/setLocation');
     }
   }
 
@@ -53,24 +54,28 @@ export default class Home extends Component {
     // require the logo image both from client and server
     const logoImage = require('./logo-placeholder.png');
     return (
-      <div className={styles.home}>
-        <Helmet title="Home"/>
-        <div className={styles.masthead}>
-          <div className="container">
-            <div className={styles.logo}>
-              <p>
-                <img src={logoImage}/>
-              </p>
+      <div>
+        <div className={styles.home}>
+          <Helmet title="Home"/>
+          <div className={styles.masthead}>
+            <div className="container">
+              <div className={styles.logo}>
+                <p>
+                  <img src={logoImage}/>
+                </p>
+              </div>
+              <h1>Do a twitter thing!</h1>
+              {this.renderLogin()}
+              <h2>{config.app.description}</h2>
             </div>
-            <h1>Do a twitter thing!</h1>
-            {this.renderLogin()}
-            <h2>{config.app.description}</h2>
           </div>
-        </div>
 
-        <div className="container">
+          <div className="container">
+          </div>
         </div>
       </div>
     );
   }
 }
+
+export default withRouter(Home);

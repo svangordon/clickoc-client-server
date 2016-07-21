@@ -1,61 +1,38 @@
 import React, { Component, PropTypes } from 'react';
 // import { Link } from 'react-router';
 // import { CounterButton } from 'components';
-import {bindActionCreators} from 'redux';
-import config from '../../config';
+// import {bindActionCreators} from 'redux';
+// import config from '../../config';
 import Helmet from 'react-helmet';
-import {connect} from 'react-redux';
-import {test} from 'redux/modules/apiTest';
+// import {connect} from 'react-redux';
+// import {load as loadUser} from 'redux/modules/user';
+// import {test} from 'redux/modules/apiTest';
+// import {push} from 'react-router-redux';
 // import { isLoaded as isAuthLoaded } from 'redux/modules/auth';
-
-
-@connect(
-    state => ({
-      info: state.info.data,
-      auth: state.auth,
-      user: state.user
-    }),
-    dispatch => bindActionCreators({test}, dispatch))
 
 export default class SetLocation extends Component {
   static propTypes = {
-    info: PropTypes.object,
-    auth: PropTypes.object,
-    user: PropTypes.object,
-    test: PropTypes.func.isRequired
+    router: PropTypes.func
   }
-
-  componentWillMount() {
-    this.props.test();
-    // if ('geolocation' in navigator) {
-    //   console.log('geoloc available');
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     console.log('coords ==', position.coords);
-    //   });
-    // } else {
-    //   console.log('geoloc not available');
-    // }
-  }
-
-  renderLogin() {
-    if (this.props.auth.loaded) {
-      return null;
-    }
-    return (
-      <a href={'http://localhost:5000/auth/twitter'}>Login w/ Twitter</a>
-    );
-  }
+  // componentWillMount() {
+  // }
 
   render() {
     const styles = require('./SetLocation.scss');
     // require the logo image both from client and server
-    const logoImage = require('./logo-placeholder.png');
+    console.log('outer classname ==', styles.setLocation);
     return (
       <div className={styles.setLocation}>
-        <Helmet title="Where You At"/>
+        <Helmet title="SetLocation"/>
         <div className={styles.masthead}>
           <div className="container">
-            <h1>We don't know where you are!</h1>
+            <div className={styles.logo}>
+              <p>
+                <img/>
+              </p>
+            </div>
+            <h1>Do a twitter thing!</h1>
+            <h2>The other thing!</h2>
           </div>
         </div>
 
