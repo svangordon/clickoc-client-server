@@ -15,7 +15,11 @@
     "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-console": 0,
-    "no-alert": 0
+    "no-alert": 0,
+    "quotes": 0, // I use singlequotes pretty consistently, but don't care if i paste in some code that does...
+    # "react/jsx-no-undef": 1,
+    "react/prop-types" : 1,
+    "no-unused-vars": 1
   },
   "plugins": [
     "react", "import"
