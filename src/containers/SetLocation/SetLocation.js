@@ -15,9 +15,30 @@ export default class SetLocation extends Component {
     this.state = {
       loc: {
         lat: null,
-        lon: null
-      }
+        lng: null
+      },
+      geolocAvailable: null
     };
+  }
+
+  componentWillMount() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(this._setGeoloc.bind(this));
+    } else {
+      this.setState({
+        geolocAvailable: false
+      });
+    }
+  }
+
+  _setGeoloc(position) {
+    this.setState({
+      loc: {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      },
+      geolocAvailable: true
+    });
   }
 
   render() {
@@ -33,11 +54,11 @@ export default class SetLocation extends Component {
             <h2>The other thing!</h2>
           </div>
         </div>
-        <MapLoader
-          lat={-25.363882}
-          lng={131.044922}
-        />
-        <div className="container">
+        <div className="container" style={{height: 500, width: 500}}>
+          <MapLoader
+            lat={this.state.loc.lat}
+            lng={this.state.loc.lng}
+          />
         </div>
       </div>
     );

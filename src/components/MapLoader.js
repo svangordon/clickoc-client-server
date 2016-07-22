@@ -14,7 +14,10 @@ export default class MapLoader extends Component {
   }
 
   render() {
-    const props = this.props;
+    if (typeof this.props.lat !== 'number' || typeof this.props.lng !== 'number') {
+      return null;
+    }
+    console.log('lat lng ==', this.props.lat, this.props.lng);
     return (
       <div style={{ height: '100%', width: '100%' }}>
         <ScriptjsLoader
@@ -25,7 +28,7 @@ export default class MapLoader extends Component {
           loadingElement={<div style={{height: '100%', width: '100%'}}><FaSpinner /></div>}
           containerElement={<div style={{height: '100%', width: '100%'}} />}
           googleMapElement={
-            <GoogleMap ref={(map) => console.log(map)} defaultZoom={12} defaultCenter={{lat: props.lat, lng: props.lon}} />
+            <GoogleMap ref={(map) => console.log(map)} defaultZoom={12} defaultCenter={{lat: this.props.lat, lng: this.props.lng}} />
           }
         />
       </div>
