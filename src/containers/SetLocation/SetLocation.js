@@ -1,11 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
-import config from '../../config';
 import { MapLoader } from 'components';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {setLocation} from 'redux/modules/user';
+
+@connect(
+    () => ({}),
+    {setLocation}
+  )
 
 export default class SetLocation extends Component {
   static propTypes = {
-    router: PropTypes.func
+    router: PropTypes.func,
+    setLocation: PropTypes.func
   }
 
   constructor() {
@@ -51,7 +59,8 @@ export default class SetLocation extends Component {
   }
 
   _submitLocation() {
-    console.log('submit location');
+    console.log(this.props);
+    this.props.setLocation(this.state.loc);
   }
 
   _renderLocationConfirmation() {

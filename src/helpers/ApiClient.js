@@ -28,6 +28,7 @@ export default class ApiClient {
         }
 
         if (data) {
+          console.log('sending data');
           request.send(data);
         }
 

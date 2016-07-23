@@ -1,12 +1,9 @@
 const LOAD = 'clickoc-client/user/LOAD';
 const LOAD_SUCCESS = 'click-client/user/LOAD_SUCCESS';
 const LOAD_FAIL = 'click-client/user/LOAD_FAIL';
-const LOGIN = 'click-client/user/LOGIN';
-const LOGIN_SUCCESS = 'click-client/user/LOGIN_SUCCESS';
-const LOGIN_FAIL = 'click-client/user/LOGIN_FAIL';
-const LOGOUT = 'click-client/user/LOGOUT';
-const LOGOUT_SUCCESS = 'click-client/user/LOGOUT_SUCCESS';
-const LOGOUT_FAIL = 'click-client/user/LOGOUT_FAIL';
+const SET_LOCATION = 'clickoc-client/user/SET_LOCATION';
+const SET_LOCATION_SUCCESS = 'click-client/user/SET_LOCATION_SUCCESS';
+const SET_LOCATION_FAIL = 'click-client/user/SET_LOCATION_FAIL';
 
 const initialState = {
   loaded: false,
@@ -34,41 +31,26 @@ export default function reducer(state = initialState, action = {}) {
         loaded: false,
         error: action.error
       };
-    case LOGIN:
+    case SET_LOCATION:
       return {
         ...state,
-        loggingIn: true
+        loading: true
       };
-    case LOGIN_SUCCESS:
+    case SET_LOCATION_SUCCESS:
       return {
         ...state,
-        loggingIn: false,
+        loading: false,
+        loaded: true,
         user: action.result
       };
-    case LOGIN_FAIL:
+    case SET_LOCATION_FAIL:
       return {
         ...state,
-        loggingIn: false,
-        user: null,
-        loginError: action.error
+        loading: false,
+        loaded: false,
+        error: action.error
       };
-    case LOGOUT:
-      return {
-        ...state,
-        loggingOut: true
-      };
-    case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        loggingOut: false,
-        user: null
-      };
-    case LOGOUT_FAIL:
-      return {
-        ...state,
-        loggingOut: false,
-        logoutError: action.error
-      };
+
     default:
       return state;
   }
@@ -81,24 +63,13 @@ export function isLoaded(globalState) {
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/loadUser')
+    promise: (client) => client.get('/api/user')
   };
 }
 
-export function login(name) {
+export function setLocation(location) {
   return {
-    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-    promise: (client) => client.post('/login', {
-      data: {
-        name: name
-      }
-    })
-  };
-}
-
-export function logout() {
-  return {
-    types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
-    promise: (client) => client.get('/logout')
+    types: [SET_LOCATION, SET_LOCATION_SUCCESS, SET_LOCATION_FAIL],
+    promise: (client) => client.post('/api/user', { data: location })
   };
 }
