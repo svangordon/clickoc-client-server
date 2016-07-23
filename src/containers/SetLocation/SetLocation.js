@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import config from '../../config';
-import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
-import {default as FaSpinner} from "react-icons/lib/fa/spinner";
 import MapLoader from '../../components/MapLoader';
 
 export default class SetLocation extends Component {
@@ -17,7 +15,7 @@ export default class SetLocation extends Component {
         lat: null,
         lng: null
       },
-      geolocAvailable: null
+      geolocAvailable: false
     };
   }
 
@@ -41,6 +39,17 @@ export default class SetLocation extends Component {
     });
   }
 
+  renderMap() {
+    if (this.state.geolocAvailable) {
+      return (
+        <MapLoader
+          initLoc={this.state.loc}
+        />
+      );
+    }
+    return null;
+  }
+
   render() {
     const styles = require('./SetLocation.scss');
     // require the logo image both from client and server
@@ -55,10 +64,7 @@ export default class SetLocation extends Component {
           </div>
         </div>
         <div className="container" style={{height: 500, width: 500}}>
-          <MapLoader
-            lat={this.state.loc.lat}
-            lng={this.state.loc.lng}
-          />
+          {this.renderMap()}
         </div>
       </div>
     );

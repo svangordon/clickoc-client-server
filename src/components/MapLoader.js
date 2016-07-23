@@ -1,23 +1,57 @@
 import React, { Component, PropTypes } from 'react';
-import { GoogleMap } from 'react-google-maps';
+import { GoogleMap, Marker } from 'react-google-maps';
 import { default as FaSpinner } from 'react-icons/lib/fa/spinner.js';
 import { default as ScriptjsLoader } from 'react-google-maps/lib/async/ScriptjsLoader';
 
 export default class MapLoader extends Component {
   static propTypes = {
-    lat: PropTypes.number,
-    lng: PropTypes.number
+    initLoc: PropTypes.object
   }
 
-  constructor() {
+  constructor(props) {
     super();
+    this.state = {
+      loc: props.initLoc
+    };
+  }
+
+  componentWillMount() {
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('receiving props');
+    this.setState({
+      loc: nextProps.loc
+    });
+  }
+
+  handleMapClick(event) {
+    // console.log('map clicked; e ==', event.latLng.lat());
+    this.setState({
+      loc: {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+      }
+    }, () => {console.log('click; newState ==', this.state);});
+  }
+
+  renderGoogleMap() {
+    return (
+      <GoogleMap
+        ref={(map) => console.log(map)}
+        defaultZoom={15}
+        defaultCenter={this.state.loc}
+        onClick={this.handleMapClick.bind(this)}
+      >
+        <Marker
+          position={this.state.loc}
+        />
+      </GoogleMap>
+    );
   }
 
   render() {
-    if (typeof this.props.lat !== 'number' || typeof this.props.lng !== 'number') {
-      return null;
-    }
-    console.log('lat lng ==', this.props.lat, this.props.lng);
     return (
       <div style={{ height: '100%', width: '100%' }}>
         <ScriptjsLoader
@@ -27,9 +61,7 @@ export default class MapLoader extends Component {
           query={{v: '3.exp', key: "AIzaSyCpNk8OQ8-7faUnIoKCjYTNcFMLLVJ1zOE", libraries: 'places'}}
           loadingElement={<div style={{height: '100%', width: '100%'}}><FaSpinner /></div>}
           containerElement={<div style={{height: '100%', width: '100%'}} />}
-          googleMapElement={
-            <GoogleMap ref={(map) => console.log(map)} defaultZoom={12} defaultCenter={{lat: this.props.lat, lng: this.props.lng}} />
-          }
+          googleMapElement={this.renderGoogleMap()}
         />
       </div>
     );
