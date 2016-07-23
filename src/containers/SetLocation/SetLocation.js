@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import config from '../../config';
-import MapLoader from '../../components/MapLoader';
+import { MapLoader } from 'components';
 
 export default class SetLocation extends Component {
   static propTypes = {
@@ -39,7 +39,7 @@ export default class SetLocation extends Component {
     });
   }
 
-  renderMap() {
+  _renderMap() {
     if (this.state.geolocAvailable) {
       return (
         <MapLoader
@@ -50,12 +50,24 @@ export default class SetLocation extends Component {
     return null;
   }
 
+  _submitLocation() {
+    console.log('submit location');
+  }
+
+  _renderLocationConfirmation() {
+    return (
+      <div>
+        <p>Please select a location close-ish to where you're registered to vote</p>
+        <button onClick={this._submitLocation.bind(this)}>Submit</button>
+      </div>
+    );
+  }
+
   render() {
     const styles = require('./SetLocation.scss');
     // require the logo image both from client and server
     return (
       <div className={styles.setLocation}>
-        <MapLoader />
         <Helmet title="SetLocation"/>
         <div className={styles.masthead}>
           <div className="container">
@@ -63,8 +75,9 @@ export default class SetLocation extends Component {
             <h2>The other thing!</h2>
           </div>
         </div>
+        { this._renderLocationConfirmation() }
         <div className="container" style={{height: 500, width: 500}}>
-          {this.renderMap()}
+          {this._renderMap()}
         </div>
       </div>
     );

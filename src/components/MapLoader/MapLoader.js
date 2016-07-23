@@ -27,19 +27,23 @@ export default class MapLoader extends Component {
   }
 
   handleMapClick(event) {
-    // console.log('map clicked; e ==', event.latLng.lat());
+    // as I come up to speed on the maps api, i realize that
+    // this would all work better if I forewent latLng literals
+    // in favor of the built in maps class
     this.setState({
       loc: {
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
       }
-    }, () => {console.log('click; newState ==', this.state);});
+    }, () => {
+      this._googleMapComponent.panTo(this.state.loc);
+    });
   }
 
   renderGoogleMap() {
     return (
       <GoogleMap
-        ref={(map) => console.log(map)}
+        ref={(map) => {this._googleMapComponent = map; console.log(map);}}
         defaultZoom={15}
         defaultCenter={this.state.loc}
         onClick={this.handleMapClick.bind(this)}
