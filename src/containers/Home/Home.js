@@ -34,7 +34,7 @@ class Home extends Component {
     // Reminder to self that you can't mess w/ the router until after the component has mounted
     const loaded = this.props.user.loaded;
     const user = this.props.user.user;
-    if (loaded && user.location && user.location.lon === -9999 && user.location.lat === -9999) {
+    if (loaded && user.location && user.location.lng === -9999 && user.location.lat === -9999) {
       console.log('should redirect');
       // console.log(this.props.router);
       this.props.router.push('/setLocation');
