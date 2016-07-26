@@ -13,32 +13,26 @@ import {load as loadLegislator} from 'redux/modules/legislator';
 
 @connect(
     state => ({
-      info: state.info.data,
-      auth: state.auth,
-      user: state.user
+      user: state.user,
+      legislator: state.legislator
     }),
-    // dispatch => bindActionCreators({test}, dispatch),
-    // {pushState: push}
+    {loadLegislator}
   )
 
 class Dashboard extends Component {
   static propTypes = {
-    info: PropTypes.object,
     user: PropTypes.object,
-    auth: PropTypes.object,
-    router: PropTypes.object
-    // pushState: PropTypes.func.isRequired
+    legislator: PropTypes.object,
+    router: PropTypes.object,
+    loadLegislator: PropTypes.func.isRequired
+  }
+
+  componentWillMount() {
+    this.props.loadLegislator();
   }
 
   componentDidMount() {
-    // Reminder to self that you can't mess w/ the router until after the component has mounted
-    const loaded = this.props.user.loaded;
-    const user = this.props.user.user;
-    if (loaded && user.location && user.location.lng === -9999 && user.location.lat === -9999) {
-      console.log('should redirect');
-      // console.log(this.props.router);
-      this.props.router.push('/setLocation');
-    }
+
   }
 
   renderLogin() {
@@ -53,7 +47,6 @@ class Dashboard extends Component {
   render() {
     const styles = require('./Dashboard.scss');
     // require the logo image both from client and server
-    const logoImage = require('./logo-placeholder.png');
     return (
       <div>
         <div className={styles.dashboard}>

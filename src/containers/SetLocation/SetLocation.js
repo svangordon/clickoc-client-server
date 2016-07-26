@@ -4,6 +4,7 @@ import { MapLoader } from 'components';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {setLocation} from 'redux/modules/user';
+import { withRouter } from 'react-router';
 
 @connect(
     () => ({}),
@@ -37,6 +38,10 @@ export default class SetLocation extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+
+  }
+
   _setGeoloc(position) {
     this.setState({
       loc: {
@@ -61,6 +66,7 @@ export default class SetLocation extends Component {
   _submitLocation() {
     console.log(this.props);
     this.props.setLocation(this.state.loc);
+    this.props.router.push('/dashboard');
   }
 
   _renderLocationConfirmation() {
