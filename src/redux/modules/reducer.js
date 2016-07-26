@@ -10,6 +10,7 @@ import info from './info';
 import widgets from './widgets';
 import apiTest from './apiTest';
 import user from './user';
+import legislator from './legislator';
 
 export default combineReducers({
   routing: routerReducer,
@@ -17,12 +18,8 @@ export default combineReducers({
   auth,
   user,
   form,
-  multireducer: multireducer({
-    counter1: counter,
-    counter2: counter,
-    counter3: counter
-  }),
   info,
   widgets,
-  apiTest
+  apiTest,
+  legislator
 });

@@ -56,7 +56,12 @@ class Dashboard extends Component {
           </div>
 
           <div className="container">
-            Body
+            Your federal legislators are:
+            { this.props.legislator.legislator.map(cur => {
+              return (
+                <div>{cur.twitterId}</div>
+              );
+            }) }
           </div>
         </div>
       </div>

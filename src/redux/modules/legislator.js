@@ -3,10 +3,11 @@ const LOAD_SUCCESS = 'clickoc-client/legislator/LOAD_SUCCESS';
 const LOAD_FAIL = 'clickoc-client/legislator/LOAD_FAIL';
 
 const initialState = {
-  loaded: false
+  loaded: false,
+  legislator: null
 };
 
-export default function info(state = initialState, action = {}) {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {
@@ -18,7 +19,7 @@ export default function info(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        legislators: action.result
+        legislator: action.result
       };
     case LOAD_FAIL:
       return {
@@ -39,6 +40,6 @@ export function isLoaded(globalState) {
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.get('/legislator')
+    promise: (client) => client.get('/api/legislator')
   };
 }
