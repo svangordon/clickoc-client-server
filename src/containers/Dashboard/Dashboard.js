@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import config from '../../config';
 import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
-// import {load as loadUser} from 'redux/modules/user';
+import {load as loadLegislator} from 'redux/modules/legislator';
 // import {test} from 'redux/modules/apiTest';
 // import {push} from 'react-router-redux';
 // import { isLoaded as isAuthLoaded } from 'redux/modules/auth';
@@ -21,7 +21,7 @@ import {connect} from 'react-redux';
     // {pushState: push}
   )
 
-class Home extends Component {
+class Dashboard extends Component {
   static propTypes = {
     info: PropTypes.object,
     user: PropTypes.object,
@@ -51,27 +51,19 @@ class Home extends Component {
   }
 
   render() {
-    const styles = require('./Home.scss');
+    const styles = require('./Dashboard.scss');
     // require the logo image both from client and server
     const logoImage = require('./logo-placeholder.png');
     return (
       <div>
-        <div className={styles.home}>
-          <Helmet title="Home"/>
+        <div className={styles.dashboard}>
+          <Helmet title="Dashboard"/>
           <div className={styles.masthead}>
-            <div className="container">
-              <div className={styles.logo}>
-                <p>
-                  <img src={logoImage}/>
-                </p>
-              </div>
-              <h1>Do a twitter thing!</h1>
-              {this.renderLogin()}
-              <h2>{config.app.description}</h2>
-            </div>
+            Masthead
           </div>
 
           <div className="container">
+            Body
           </div>
         </div>
       </div>
@@ -79,4 +71,4 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home);
+export default withRouter(Dashboard);

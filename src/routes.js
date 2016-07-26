@@ -11,7 +11,8 @@ import {
     LoginSuccess,
     Survey,
     NotFound,
-    SetLocation
+    SetLocation,
+    Dashboard
   } from 'containers';
 
 export default (store) => {
@@ -48,6 +49,7 @@ export default (store) => {
 
       { /* Routes */ }
       <Route path="setLocation" component={SetLocation}/>
+      <Route path="dashboard" component={Dashboard}/>
       <Route path="about" component={About}/>
       <Route path="login" component={Login}/>
       <Route path="survey" component={Survey}/>
