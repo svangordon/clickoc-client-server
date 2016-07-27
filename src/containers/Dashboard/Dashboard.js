@@ -32,7 +32,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user);
+    console.log(this.props.user.user.location);
     if (this.props.user.loaded && this.props.user.user.location.lat <= 0) {
       console.log('should redirect');
       this.props.router.push('/setLocation');
@@ -42,13 +42,17 @@ class Dashboard extends Component {
     }
   }
 
-  renderLogin() {
-    if (this.props.user.loaded) {
-      return null;
+  _renderLegs() {
+    if (this.props.legislator.loaded && this.props.legislator.legislator) {
+      return (
+        this.props.legislator.legislator.map((cur, index) => {
+          return (
+            <div key={index}>{cur.twitterId}</div>
+          );
+        })
+      );
     }
-    return (
-      <a href={'http://localhost:5000/auth/twitter'}>Login w/ Twitter</a>
-    );
+    return null;
   }
 
   render() {
@@ -65,7 +69,7 @@ class Dashboard extends Component {
           <div className="container">
             Your federal legislators are:
             {
-              null
+              this._renderLegs()
             }
           </div>
         </div>
