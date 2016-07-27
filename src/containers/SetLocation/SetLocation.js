@@ -11,7 +11,7 @@ import { withRouter } from 'react-router';
     {setLocation}
   )
 
-export default class SetLocation extends Component {
+class SetLocation extends Component {
   static propTypes = {
     router: PropTypes.func,
     setLocation: PropTypes.func
@@ -98,3 +98,5 @@ export default class SetLocation extends Component {
     );
   }
 }
+
+export default withRouter(SetLocation);

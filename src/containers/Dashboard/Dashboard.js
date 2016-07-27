@@ -28,11 +28,18 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    this.props.loadLegislator();
+
   }
 
   componentDidMount() {
-
+    console.log(this.props.user);
+    if (this.props.user.loaded && this.props.user.user.location.lat <= 0) {
+      console.log('should redirect');
+      this.props.router.push('/setLocation');
+    } else {
+      console.log(this.props.user.loaded, this.props.user.user.location.lat === -9999);
+      this.props.loadLegislator();
+    }
   }
 
   renderLogin() {
@@ -57,11 +64,9 @@ class Dashboard extends Component {
 
           <div className="container">
             Your federal legislators are:
-            { this.props.legislator.legislator.map(cur => {
-              return (
-                <div>{cur.twitterId}</div>
-              );
-            }) }
+            {
+              null
+            }
           </div>
         </div>
       </div>
