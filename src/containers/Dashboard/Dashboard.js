@@ -6,9 +6,8 @@ import config from '../../config';
 import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {load as loadLegislator} from 'redux/modules/legislator';
-// import {test} from 'redux/modules/apiTest';
-// import {push} from 'react-router-redux';
-// import { isLoaded as isAuthLoaded } from 'redux/modules/auth';
+import {TweetForm} from 'components';
+import {initialize} from 'redux-form';
 
 
 @connect(
@@ -16,7 +15,7 @@ import {load as loadLegislator} from 'redux/modules/legislator';
       user: state.user,
       legislator: state.legislator
     }),
-    {loadLegislator}
+    {loadLegislator, initialize}
   )
 
 class Dashboard extends Component {
@@ -24,7 +23,8 @@ class Dashboard extends Component {
     user: PropTypes.object,
     legislator: PropTypes.object,
     router: PropTypes.object,
-    loadLegislator: PropTypes.func.isRequired
+    loadLegislator: PropTypes.func.isRequired,
+    initialize: PropTypes.func.isRequired
   }
 
   componentWillMount() {
@@ -55,6 +55,15 @@ class Dashboard extends Component {
     return null;
   }
 
+  handleSubmit = (data) => {
+    window.alert('Data submitted! ' + JSON.stringify(data));
+    this.props.initialize('survey', {});
+  }
+
+  _handleSubmit(data) {
+    console.log('submit fired', data);
+  }
+
   render() {
     const styles = require('./Dashboard.scss');
     // require the logo image both from client and server
@@ -71,6 +80,9 @@ class Dashboard extends Component {
             {
               this._renderLegs()
             }
+          </div>
+          <div className="container">
+            <TweetForm onSubmit={this._handleSubmit.bind(this)} legislators={this.props.legislator.legislator} />
           </div>
         </div>
       </div>
