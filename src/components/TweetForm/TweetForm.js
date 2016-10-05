@@ -20,8 +20,8 @@ function asyncValidate(data, dispatch, {isValidTweet, legislators}) {
 @reduxForm({
   form: 'tweet',
   fields: ['tweetContent'],
-  validate: tweetValidation,
-  asyncValidate
+  validate: tweetValidation
+  // asyncValidate
 })
 export default
 class TweetForm extends Component {

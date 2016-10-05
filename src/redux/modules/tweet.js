@@ -51,10 +51,13 @@ export default function reducer(state = initialState, action = {}) {
     case TOGGLE_LEGISLATOR:
       const {activeLegislators} = state;
       console.log('trying to add legislator, action ==', action);
-      if (!activeLegislators.includes(action.legislator)) {
+      const legislatorIndex = activeLegislators.findIndex((activeLegislator) => {
+        return activeLegislator.twitterId === action.legislator.twitterId;
+      });
+      if (legislatorIndex === -1) {
         activeLegislators.push(action.legislator);
       } else {
-        activeLegislators.splice(activeLegislators.indexOf(action.legislator), 1);
+        activeLegislators.splice(legislatorIndex, 1);
       }
       return {
         ...state,

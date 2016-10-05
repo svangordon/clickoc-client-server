@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import {load as loadLegislator} from 'redux/modules/legislator';
 import {TweetForm} from 'components';
 import {initialize} from 'redux-form';
-import {toggleLegislator} from 'redux/modules/tweet';
+import {toggleLegislator, sendTweet} from 'redux/modules/tweet';
 
 
 @connect(
@@ -17,7 +17,7 @@ import {toggleLegislator} from 'redux/modules/tweet';
       legislator: state.legislator,
       tweet: state.tweet
     }),
-    {loadLegislator, initialize, toggleLegislator}
+    {loadLegislator, initialize, toggleLegislator, sendTweet}
   )
 
 class Dashboard extends Component {
@@ -45,8 +45,7 @@ class Dashboard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.tweet.initialized) {
-      console.log('adding all leg');
+    if (!nextProps.tweet.initialized && nextProps.legislator.loaded) {
       nextProps.legislator.legislator.forEach(legislator => {
         this.props.toggleLegislator(legislator);
       });
@@ -54,11 +53,26 @@ class Dashboard extends Component {
   }
 
   _renderLegs() {
+    const styles = require('./Dashboard.scss');
     if (this.props.legislator.loaded && this.props.legislator.legislator) {
       return (
         this.props.legislator.legislator.map((legislator, index) => {
+          // const party = legislator.poliInfo.party === "D" ? 'democrat' : legislator.poliInfo === "R" ? 'republican' : 'independent';
+          let party;
+          if (legislator.poliInfo.party === "D") {
+            party = styles.democrat;
+          } else if (legislator.poliInfo.party === "R") {
+            party = styles.republican;
+          } else {
+            party = styles.independent;
+          }
+          console.log('looking for ', legislator.twitterId, this.props.tweet.activeLegislators, this.props.tweet.activeLegislators.includes(legislator));
+          const active = this.props.tweet.activeLegislators.some(activeLeg => {
+            return activeLeg.twitterId === legislator.twitterId;
+          }) ? styles.active : "";
+          const classes = `${party} ${active} ${styles.legislator}`;
           return (
-            <div onClick={this.props.toggleLegislator.bind(this, legislator)} key={index}>{legislator.bioInfo.title + " " + legislator.bioInfo.firstName + " " + legislator.bioInfo.lastName}</div>
+            <div className={classes} onClick={this.props.toggleLegislator.bind(this, legislator)} key={index}>{legislator.bioInfo.title + " " + legislator.bioInfo.firstName + " " + legislator.bioInfo.lastName}</div>
           );
         })
       );
@@ -71,8 +85,13 @@ class Dashboard extends Component {
   //   this.props.initialize('survey', {});
   // }
 
-  _handleSubmit(data) {
+  _handleSubmit(formData) {
+    const data = {
+      tweetContent: formData.tweetContent,
+      legislators: this.props.tweet.activeLegislators
+    };
     console.log('submit fired', data);
+    this.props.sendTweet(data);
   }
 
   render() {

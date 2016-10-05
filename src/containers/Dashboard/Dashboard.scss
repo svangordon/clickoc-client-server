@@ -5,6 +5,24 @@
     margin-bottom: 15px;
   }
 }
+
+.republican {
+  color: $repRed;
+}
+
+.democrat {
+  color: $demBlue;
+}
+
+.active {
+  font-weight: 900;
+}
+
+.legislator {
+  background-color: $cyan;
+  width: 150px;
+}
+
 .masthead {
   background: #2d2d2d;
   padding: 40px 20px;
