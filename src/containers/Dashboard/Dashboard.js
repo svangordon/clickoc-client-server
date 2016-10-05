@@ -55,10 +55,10 @@ class Dashboard extends Component {
     return null;
   }
 
-  handleSubmit = (data) => {
-    window.alert('Data submitted! ' + JSON.stringify(data));
-    this.props.initialize('survey', {});
-  }
+  // handleSubmit = (data) => {
+  //   window.alert('Data submitted! ' + JSON.stringify(data));
+  //   this.props.initialize('survey', {});
+  // }
 
   _handleSubmit(data) {
     console.log('submit fired', data);
