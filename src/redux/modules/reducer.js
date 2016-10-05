@@ -11,6 +11,7 @@ import widgets from './widgets';
 import apiTest from './apiTest';
 import user from './user';
 import legislator from './legislator';
+import tweet from './tweet';
 
 export default combineReducers({
   routing: routerReducer,
@@ -21,5 +22,6 @@ export default combineReducers({
   info,
   widgets,
   apiTest,
-  legislator
+  legislator,
+  tweet
 });

@@ -8,14 +8,16 @@ import {connect} from 'react-redux';
 import {load as loadLegislator} from 'redux/modules/legislator';
 import {TweetForm} from 'components';
 import {initialize} from 'redux-form';
+import {toggleLegislator} from 'redux/modules/tweet';
 
 
 @connect(
     state => ({
       user: state.user,
-      legislator: state.legislator
+      legislator: state.legislator,
+      tweet: state.tweet
     }),
-    {loadLegislator, initialize}
+    {loadLegislator, initialize, toggleLegislator}
   )
 
 class Dashboard extends Component {
@@ -42,12 +44,21 @@ class Dashboard extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.tweet.initialized) {
+      console.log('adding all leg');
+      nextProps.legislator.legislator.forEach(legislator => {
+        this.props.toggleLegislator(legislator);
+      });
+    }
+  }
+
   _renderLegs() {
     if (this.props.legislator.loaded && this.props.legislator.legislator) {
       return (
-        this.props.legislator.legislator.map((cur, index) => {
+        this.props.legislator.legislator.map((legislator, index) => {
           return (
-            <div key={index}>{cur.twitterId}</div>
+            <div onClick={this.props.toggleLegislator.bind(this, legislator)} key={index}>{legislator.bioInfo.title + " " + legislator.bioInfo.firstName + " " + legislator.bioInfo.lastName}</div>
           );
         })
       );

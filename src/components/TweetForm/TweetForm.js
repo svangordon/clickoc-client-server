@@ -13,6 +13,7 @@ function asyncValidate(data, dispatch, {isValidTweet, legislators}) {
   }
   return isValidTweet(data);
 }
+
 @connect(() => ({}),
   dispatch => bindActionCreators(tweetActions, dispatch)
 )
@@ -57,12 +58,6 @@ class TweetForm extends Component {
           {showAsyncValidating && asyncValidating && <i className={'fa fa-cog fa-spin ' + styles.cog}/>}
           <input type="text" className="form-control" id={field.name} {...field}/>
           {field.error && field.touched && <div className="text-danger">{field.error}</div>}
-          <div className={styles.flags}>
-            {field.dirty && <span className={styles.dirty} title="Dirty">D</span>}
-            {field.active && <span className={styles.active} title="Active">A</span>}
-            {field.visited && <span className={styles.visited} title="Visited">V</span>}
-            {field.touched && <span className={styles.touched} title="Touched">T</span>}
-          </div>
         </div>
       </div>;
 
@@ -81,33 +76,6 @@ class TweetForm extends Component {
             </div>
           </div>
         </form>
-
-        <h4>Props from redux-form</h4>
-
-        <table className="table table-striped">
-          <tbody>
-          <tr>
-            <th>Active Field</th>
-            <td>{active}</td>
-          </tr>
-          <tr>
-            <th>Dirty</th>
-            <td className={dirty ? 'success' : 'danger'}>{dirty ? 'true' : 'false'}</td>
-          </tr>
-          <tr>
-            <th>Pristine</th>
-            <td className={pristine ? 'success' : 'danger'}>{pristine ? 'true' : 'false'}</td>
-          </tr>
-          <tr>
-            <th>Valid</th>
-            <td className={valid ? 'success' : 'danger'}>{valid ? 'true' : 'false'}</td>
-          </tr>
-          <tr>
-            <th>Invalid</th>
-            <td className={invalid ? 'success' : 'danger'}>{invalid ? 'true' : 'false'}</td>
-          </tr>
-          </tbody>
-        </table>
       </div>
     );
   }
