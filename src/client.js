@@ -65,7 +65,7 @@ if (__DEVTOOLS__ && !window.devToolsExtension) {
     <Provider store={store} key="provider">
       <div>
         {component}
-        <DevTools />
+        {/* <DevTools /> */}
       </div>
     </Provider>,
     dest

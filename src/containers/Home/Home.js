@@ -41,7 +41,9 @@ class Home extends Component {
       return null;
     }
     return (
-      <a href={'http://localhost:5000/auth/twitter'}>Login w/ Twitter</a>
+      <h2>
+        <a href={'http://localhost:5000/auth/twitter'}>Login with Twitter</a>
+      </h2>
     );
   }
 
@@ -60,15 +62,15 @@ class Home extends Component {
                   <img src={logoImage}/>
                 </p>
               </div>
-
+              <h1>Clickocracy</h1>
+              <p>Clickocracy is a web app that lets you easily tweet your congresspeople. Think of it like a Vox Twitteri</p>
             </div>
           </div>
           <Grid>
             <Row>
               <Column width="1/2">
-                <h1>Login with Twitter!</h1>
                 {this.renderLogin()}
-                <h2>{config.app.description}</h2>
+                <h2></h2>
               </Column>
               <Column width="1/2">
                 <TwitterTimeline
