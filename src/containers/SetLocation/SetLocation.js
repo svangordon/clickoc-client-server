@@ -82,8 +82,7 @@ class SetLocation extends Component {
         <Helmet title="SetLocation"/>
         <div className={styles.masthead}>
           <div className="container">
-            <h1>Do a twitter thing!</h1>
-            <h2>The other thing!</h2>
+            <h1>Clickocracy</h1>
           </div>
         </div>
         { this._renderLocationConfirmation() }
