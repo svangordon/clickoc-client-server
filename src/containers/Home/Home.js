@@ -42,7 +42,7 @@ class Home extends Component {
     }
     return (
       <h2>
-        <a href={'http://localhost:5000/auth/twitter'}>Login with Twitter</a>
+        <a href={'http://198.199.97.69:5000/auth/twitter'}>Login with Twitter</a>
       </h2>
     );
   }
