@@ -5,11 +5,8 @@ import { withRouter } from 'react-router';
 import config from '../../config';
 import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
-// import {load as loadUser} from 'redux/modules/user';
-// import {test} from 'redux/modules/apiTest';
-// import {push} from 'react-router-redux';
-// import { isLoaded as isAuthLoaded } from 'redux/modules/auth';
-
+import {Grid, Row, Column, observeGrid} from 'react-cellblock';
+import {TwitterTimeline} from 'components';
 
 @connect(
     state => ({
@@ -63,14 +60,25 @@ class Home extends Component {
                   <img src={logoImage}/>
                 </p>
               </div>
-              <h1>Do a twitter thing!</h1>
-              {this.renderLogin()}
-              <h2>{config.app.description}</h2>
+
             </div>
           </div>
-
-          <div className="container">
-          </div>
+          <Grid>
+            <Row>
+              <Column width="1/2">
+                <h1>Login with Twitter!</h1>
+                {this.renderLogin()}
+                <h2>{config.app.description}</h2>
+              </Column>
+              <Column width="1/2">
+                <TwitterTimeline
+                  widgetId={"783900553428422660"}
+                  link={"https://twitter.com/hashtag/clickocracy"}
+                  title={"#clickocracy Tweets"}
+                />
+              </Column>
+            </Row>
+          </Grid>
         </div>
       </div>
     );

@@ -20,7 +20,7 @@ class TweetForm extends Component {
     active: PropTypes.string,
     asyncValidating: PropTypes.bool.isRequired,
     fields: PropTypes.object.isRequired,
-    dirty: PropTypes.bool.isRequired,
+    // dirty: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
     invalid: PropTypes.bool.isRequired,
@@ -29,13 +29,22 @@ class TweetForm extends Component {
     legislators: PropTypes.array
   }
 
+  _handleSubmit(formData) {
+    this.props.handleSubmit(formData)
+      .then(val => {
+        console.log('promise works');
+      });
+    this.props.resetForm();
+  }
+
   render() {
     const {
       asyncValidating,
-      dirty,
+      // dirty,
       fields: {tweetContent},
       // active,
       handleSubmit,
+      _handleSubmit,
       // invalid,
       resetForm,
       // pristine,
@@ -44,8 +53,8 @@ class TweetForm extends Component {
     const styles = require('./TweetForm.scss');
     const renderInput = (field, label, showAsyncValidating) =>
       <div className={'form-group' + (field.error && field.touched ? ' has-error' : '')}>
-        <label htmlFor={field.name} className="col-sm-2">{label}</label>
-        <div className={'col-sm-8 ' + styles.inputGroup}>
+        <label htmlFor={field.name}>{label}</label>
+        <div>
           {showAsyncValidating && asyncValidating && <i className={'fa fa-cog fa-spin ' + styles.cog}/>}
           <input type="text" className="form-control" id={field.name} {...field}/>
           {field.error && field.touched && <div className="text-danger">{field.error}</div>}

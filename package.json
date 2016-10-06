@@ -99,6 +99,7 @@
     "pretty-error": "^1.2.0",
     "react": "^0.14.2",
     "react-bootstrap": "^0.28.1",
+    "react-cellblock": "^2.0.0",
     "react-dom": "^0.14.1",
     "react-google-maps": "^4.11.0",
     "react-helmet": "^2.2.0",

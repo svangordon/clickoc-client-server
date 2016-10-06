@@ -9,7 +9,9 @@ const TOGGLE_LEGISLATOR = 'clickoc-client/tweet/ACTIVATE_LEGISLATOR';
 const initialState = {
   saveError: null,
   activeLegislators: [], // active in the sense of we want to tweet them
-  initialized: false
+  initialized: false,
+  sent: false,
+  sending: false
 };
 
 export default function reducer(state = initialState, action = {}) {

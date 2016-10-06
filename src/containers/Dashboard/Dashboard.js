@@ -8,7 +8,7 @@ import {load as loadLegislator} from 'redux/modules/legislator';
 import {TweetForm} from 'components';
 import {initialize} from 'redux-form';
 import {toggleLegislator, sendTweet} from 'redux/modules/tweet';
-// import ReactDOM from 'react-dom';
+import {Grid, Row, Column, observeGrid} from 'react-cellblock';
 import {TwitterTimeline} from 'components';
 
 @connect(
@@ -30,6 +30,13 @@ class Dashboard extends Component {
     toggleLegislator: PropTypes.func,
     tweet: PropTypes.object,
     sendTweet: PropTypes.func
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      sentTweet: false
+    };
   }
 
   componentWillMount() {
@@ -68,7 +75,7 @@ class Dashboard extends Component {
           } else {
             party = styles.independent;
           }
-          console.log('looking for ', legislator.twitterId, this.props.tweet.activeLegislators, this.props.tweet.activeLegislators.includes(legislator));
+          // console.log('looking for ', legislator.twitterId, this.props.tweet.activeLegislators, this.props.tweet.activeLegislators.includes(legislator));
           const active = this.props.tweet.activeLegislators.some(activeLeg => {
             return activeLeg.twitterId === legislator.twitterId;
           }) ? styles.active : "";
@@ -82,6 +89,16 @@ class Dashboard extends Component {
     return null;
   }
 
+  _renderTweetStatus() {
+    // console.log('sentTweet ==', this.state.sentTweet, this.state);
+    if (!this.state.sentTweet) {
+      return null;
+    }
+    return (
+      <p>Tweet Sent</p>
+    );
+  }
+
   // handleSubmit = (data) => {
   //   window.alert('Data submitted! ' + JSON.stringify(data));
   //   this.props.initialize('survey', {});
@@ -93,6 +110,9 @@ class Dashboard extends Component {
       legislators: this.props.tweet.activeLegislators
     };
     console.log('submit fired', data);
+    this.setState({
+      sentTweet: true
+    });
     this.props.sendTweet(data);
   }
 
@@ -106,25 +126,30 @@ class Dashboard extends Component {
           <div className={styles.masthead}>
             Masthead
           </div>
-
-          <div className="container">
-            Your federal legislators are:
-            {
-              this._renderLegs()
-            }
-          </div>
-          <div className="container">
-            <TweetForm onSubmit={this._handleSubmit.bind(this)} legislators={this.props.legislator.legislator} />
-          </div>
-          <div>
-
-          <TwitterTimeline
-            widgetId={"783900553428422660"}
-            link={"https://twitter.com/hashtag/clickocracy"}
-            title={"#clickocracy Tweets"}
-          />
-
-          </div>
+          <Grid>
+            <Row>
+              <Column width="1/2">
+                <div>
+                  Your federal legislators are:
+                  {
+                    this._renderLegs()
+                  }
+                  Click to select / deselect those you would like to tweet.
+                </div>
+                <div>
+                  <TweetForm onSubmit={this._handleSubmit.bind(this)} legislators={this.props.legislator.legislator} />
+                </div>
+                {this._renderTweetStatus()}
+              </Column>
+              <Column width="1/2">
+                <TwitterTimeline
+                  widgetId={"783900553428422660"}
+                  link={"https://twitter.com/hashtag/clickocracy"}
+                  title={"#clickocracy Tweets"}
+                />
+              </Column>
+            </Row>
+          </Grid>
         </div>
       </div>
     );
