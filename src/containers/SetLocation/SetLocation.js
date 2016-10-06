@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { MapLoader } from 'components';
-import {bindActionCreators} from 'redux';
+// import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {setLocation} from 'redux/modules/user';
 import { withRouter } from 'react-router';
@@ -36,10 +36,6 @@ class SetLocation extends Component {
         geolocAvailable: false
       });
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-
   }
 
   _setGeoloc(position) {

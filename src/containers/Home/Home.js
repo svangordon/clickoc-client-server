@@ -32,8 +32,6 @@ class Home extends Component {
 
   componentDidMount() {
     // Reminder to self that you can't mess w/ the router until after the component has mounted
-    const loaded = this.props.user.loaded;
-    const user = this.props.user.user;
     if (this.props.user.loaded) {
       console.log('should redirect');
       // console.log(this.props.router);

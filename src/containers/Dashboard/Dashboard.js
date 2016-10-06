@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { withRouter } from 'react-router';
-// import { CounterButton } from 'components';
 // import {bindActionCreators} from 'redux';
-import config from '../../config';
+// import config from '../../config';
 import Helmet from 'react-helmet';
 import {connect} from 'react-redux';
 import {load as loadLegislator} from 'redux/modules/legislator';
@@ -26,7 +25,10 @@ class Dashboard extends Component {
     legislator: PropTypes.object,
     router: PropTypes.object,
     loadLegislator: PropTypes.func.isRequired,
-    initialize: PropTypes.func.isRequired
+    initialize: PropTypes.func.isRequired,
+    toggleLegislator: PropTypes.func,
+    tweet: PropTypes.object,
+    sendTweet: PropTypes.func
   }
 
   componentWillMount() {

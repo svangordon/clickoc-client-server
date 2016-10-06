@@ -5,15 +5,6 @@ import {bindActionCreators} from 'redux';
 import tweetValidation from './tweetValidation';
 import * as tweetActions from 'redux/modules/tweet';
 
-function asyncValidate(data, dispatch, {isValidTweet, legislators}) {
-  data.legislators = legislators;
-  console.log('async validate', data);
-  if ( /* !data.email */ false) {
-    return Promise.resolve({});
-  }
-  return isValidTweet(data);
-}
-
 @connect(() => ({}),
   dispatch => bindActionCreators(tweetActions, dispatch)
 )
@@ -43,12 +34,12 @@ class TweetForm extends Component {
       asyncValidating,
       dirty,
       fields: {tweetContent},
-      active,
+      // active,
       handleSubmit,
-      invalid,
+      // invalid,
       resetForm,
-      pristine,
-      valid
+      // pristine,
+      // valid
       } = this.props;
     const styles = require('./TweetForm.scss');
     const renderInput = (field, label, showAsyncValidating) =>
