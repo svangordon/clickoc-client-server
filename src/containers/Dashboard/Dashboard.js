@@ -9,7 +9,7 @@ import {load as loadLegislator} from 'redux/modules/legislator';
 import {TweetForm} from 'components';
 import {initialize} from 'redux-form';
 import {toggleLegislator, sendTweet} from 'redux/modules/tweet';
-
+import ReactDOM from 'react-dom';
 
 @connect(
     state => ({
@@ -34,7 +34,13 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user.user.location);
+    // Insert a script tag w/ all of the BS necessary to make a twitter widget
+    const twitterTimeline = ReactDOM.findDOMNode(this.refs.twitterTimeline);
+    const twitterScript = document.createElement('script');
+    twitterScript.src = '//platform.twitter.com/widgets.js';
+    twitterScript.async = true;
+    twitterScript.id = 'twitter-wjs';
+    twitterTimeline.parentNode.appendChild(twitterScript);
     if (this.props.user.loaded && this.props.user.user.location.lat <= 0) {
       console.log('should redirect');
       this.props.router.push('/setLocation');
@@ -114,10 +120,18 @@ class Dashboard extends Component {
           <div className="container">
             <TweetForm onSubmit={this._handleSubmit.bind(this)} legislators={this.props.legislator.legislator} />
           </div>
+          <div>
+          <a
+            ref="twitterTimeline"
+            className="twitter-timeline"
+            href={"https://twitter.com/hashtag/clickocracy"} data-widget-id={"783900553428422660"}>#clickocracy Tweets
+          </a>
+
+
+          </div>
         </div>
       </div>
     );
   }
 }
-
 export default withRouter(Dashboard);
