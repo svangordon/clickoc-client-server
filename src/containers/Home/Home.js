@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 
 @connect(
     state => ({
-      info: state.info.data,
+      // info: state.info.data,
       auth: state.auth,
       user: state.user
     }),
@@ -23,7 +23,7 @@ import {connect} from 'react-redux';
 
 class Home extends Component {
   static propTypes = {
-    info: PropTypes.object,
+    // info: PropTypes.object,
     user: PropTypes.object,
     auth: PropTypes.object,
     router: PropTypes.object

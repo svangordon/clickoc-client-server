@@ -5,6 +5,6 @@
  *
  */
 
-
+export TwitterTimeline from './TwitterTimeline';
 export MapLoader from './MapLoader/MapLoader';
 export TweetForm from './TweetForm/TweetForm';
