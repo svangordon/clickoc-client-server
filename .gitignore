@@ -8,3 +8,4 @@ npm-debug.log
 apiKeys.js
 config.js
 src/config.js
+certs/*.*
